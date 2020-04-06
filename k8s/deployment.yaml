@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: debugging-demo
+  labels:
+    app: debugging-demo
+spec:
+  revisionHistoryLimit: 4
+  template:
+    metadata:
+      labels:
+        app: debugging-demo
+    spec:
+      containers:
+      - name: debugging-demo
+        image: eu.gcr.io/code-cooking/debugging-demo:0.4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 1000Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        ports:
+        - containerPort: 8080
