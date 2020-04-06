@@ -8,7 +8,7 @@ COPY package.json package-lock.json /app/
 RUN npm install --production --quiet
 
 COPY src /app/src/
-COPY source-context.json source-contexts.json /app/
+COPY source-context.json /app/
 
 EXPOSE 8080
 
